@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Uploader;
+use App\FilesReader;
+use App\Models\DatabaseUploader;
+use App\StorageUploader;
 use App\View;
 
 class UploadController
@@ -14,8 +16,22 @@ class UploadController
         return View::make('upload/index');
     }
 
-    public function upload(): void
+    // Uploads files into storage and DB
+    public function upload(): View
     {
-        Uploader::make()->doUpload();
+        // Store transactions file in the storage folder
+        StorageUploader::make()->doUpload();
+        $filesReader = new FilesReader();
+        $filesArray = $filesReader->readFiles();
+
+        $transactionsArray = $filesReader->readTransactionsIntoArray($filesArray);
+
+        // Generate random user (for demonstration purpose only)
+        $user = 'User' . rand(0, 100);
+
+        // Store transactions in DB
+        (new DatabaseUploader())->updateDatabase($user, $transactionsArray);
+
+        return View::make('success');
     }
 }

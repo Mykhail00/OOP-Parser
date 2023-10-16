@@ -35,19 +35,41 @@
             </thead>
             <tbody>
                 <!-- TODO -->
+
+                <?php foreach ($transactions as $transaction): ?>
+                <tr>
+                    <td><?= \App\FormatClass::formatDate($transaction['date']) ?></td>
+                    <td><?= $transaction['check'] ?></td>
+                    <td><?= $transaction['description'] ?></td>
+                    <td>
+                        <?php if ($transaction['amount'] > 0): ?>
+                            <sapn style="color:green">
+                                <?= \App\FormatClass::formatAmount($transaction['amount'])?>
+                            </sapn>
+                        <?php elseif ($transaction['amount'] < 0): ?>
+                            <span style="color:red">
+                                <?= \App\FormatClass::formatAmount($transaction['amount'])?>
+                            </span>
+                        <?php else: ?>
+                            <?= \App\FormatClass::formatAmount($transaction['amount'])?>
+                        <?php endif ?>
+                    </td>
+                </tr>
+                <?php endforeach ?>
+
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="3">Total Income:</th>
-                    <td><!-- TODO --></td>
+                    <td><?=\App\FormatClass::formatAmount($totals['total_income']); ?></td>
                 </tr>
                 <tr>
                     <th colspan="3">Total Expense:</th>
-                    <td><!-- TODO --></td>
+                    <td><?=\App\FormatClass::formatAmount($totals['total_expense']); ?></td>
                 </tr>
                 <tr>
                     <th colspan="3">Net Total:</th>
-                    <td><!-- TODO --></td>
+                    <td><?=\App\FormatClass::formatAmount($totals['net_total']); ?></td>
                 </tr>
             </tfoot>
         </table>

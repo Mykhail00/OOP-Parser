@@ -18,10 +18,15 @@ define('VIEW_PATH', __DIR__ . '/../views');
 
 $router = new Router();
 
-$router
-    ->get('/', [HomeController::class, 'index'])
-    ->get('/upload', [UploadController::class, 'index'])
-    ->post('/upload', [UploadController::class, 'upload']);
+try {
+    $router
+        ->get('/', [HomeController::class, 'index'])
+        ->get('/transactions', [HomeController::class, 'transactions'])
+        ->get('/upload', [UploadController::class, 'index'])
+        ->post('/upload', [UploadController::class, 'upload']);
+} catch (\Throwable $e) {
+    exit();
+}
 
 (new App(
     $router,
