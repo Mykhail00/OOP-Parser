@@ -13,4 +13,3 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 WORKDIR /var/www
 
-RUN chown -R www-data:www-data /var/www

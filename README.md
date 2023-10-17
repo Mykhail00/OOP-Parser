@@ -14,15 +14,18 @@ cp .env.example .env
 cd docker && docker-compose up --build -d
 ```
 
-Install dependencies
+**Go inside App container:**
 ```bash
 docker exec -it my-app bash 
 ```
-```bash
-composer install
+
+**Run this commands inside App container:**
+
 ```
-```bash
-exit
+chown -R www-data:www-data /var/www/storage
+```
+```
+composer install
 ```
 
 Copy database schema from database.sql into database (user: root, password: root)
