@@ -16,4 +16,3 @@ description text not null,
 amount decimal(6,2) not null,
 foreign key (user_id) references users(id)
 );
-
