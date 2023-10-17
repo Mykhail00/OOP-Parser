@@ -11,10 +11,21 @@ cp .env.example .env
 ```
 
 ```bash
-docker-compose up --build -d
+cd docker && docker-compose up --build -d
 ```
 
-copy database schema from database.sql into database (user: root, password: root)
+Install dependencies
+```bash
+docker exec -it my-app bash 
+```
+```bash
+composer install
+```
+```bash
+exit
+```
+
+Copy database schema from database.sql into database (user: root, password: root)
 
 ## You can go to:
 http://localhost:8000
